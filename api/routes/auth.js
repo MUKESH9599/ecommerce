@@ -18,6 +18,7 @@ const verifyTOken =(req,res,next) => {
 
 const authorizationverifyToken =(req,res,next)=>{
     verifyTOken(req,res,()=>{
+        console.log("authorization",req.params.id)
         if(req.user.id==req.params.id || req.user.isAdmin){
             console.log("req.params.id",req.params.id)
             next()
@@ -29,7 +30,6 @@ const authorizationverifyToken =(req,res,next)=>{
 
 const verifyTokenAndAdmin =(req,res,next)=>{
     verifyTOken(req,res,()=>{
-    
         if(req.user.isAdmin){
             console.log("req.params.id",req.params.id)
             next()
