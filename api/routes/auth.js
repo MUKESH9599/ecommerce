@@ -29,11 +29,12 @@ const authorizationverifyToken =(req,res,next)=>{
 
 const verifyTokenAndAdmin =(req,res,next)=>{
     verifyTOken(req,res,()=>{
-        if(req.user.id== req.user.isAdmin){
+    
+        if(req.user.isAdmin){
             console.log("req.params.id",req.params.id)
             next()
         }else{
-            return res.status(401).json("not valid")
+            return res.status(401).json("not valid and not autherized")
         }
     })
 }

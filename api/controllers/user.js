@@ -40,7 +40,8 @@ const login=async (req,res)=>{
          }
 
         const token = jwt.sign({
-            id:user._id
+            id:user._id,
+            isAdmin: user.isAdmin
           }, 'secret', { expiresIn: '1h' });
 
           console.log("#####token",token)
@@ -80,10 +81,33 @@ const deleteUser = async(req, res) => {
      }
 }
 
+const getUser = async(req, res) => {
+    console.log("####getUser",req.body,req.params.id)
+     try{
+        const getUser = await User.findById(req.params.id)
+     
+        console.log("getUser",getUser)
+        res.status(200).json(getUser)
+     }catch(err){
+         res.status(500).json(err)
+     }
+}
+
+const getAllUser = async(req, res) => {
+     try{
+        const result = await User.find()
+             res.status(200).json(result)
+     }catch(err){
+         res.status(500).json(err)
+     }
+}
+
 
 module.exports ={
     register,
     login,
     update,
-    deleteUser
+    deleteUser,
+    getUser,
+    getAllUser
 }
